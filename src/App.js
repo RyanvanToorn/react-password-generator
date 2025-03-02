@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./common-styles.css"; //Common Style Sheet
 
 export default function App() {
   return (
@@ -12,9 +13,7 @@ export default function App() {
 function TopContent() {
   return (
     <div className="top-content">
-      <div className="logo-container">
-        <h3>Password Generator 🔐</h3>
-      </div>
+      <h3>Password Generator 🔐</h3>
     </div>
   );
 }
@@ -98,16 +97,18 @@ function MiddleContent() {
 
 function ResultTray({ generatedPassword, copyPassword, regeneratePassword }) {
   return (
-    <div className="result-tray">
-      <div className="display-flex align-items-center justify-content-center">
-        <div className="result-display">{generatedPassword}</div>
-        <div className="buttons-container">
-          <button className="copy-button" onClick={copyPassword}>
-            📋
-          </button>
-          <button className="regenerate-button" onClick={regeneratePassword}>
-            🔄
-          </button>
+    <div className="full-width display-flex justify-content-center">
+      <div className="results-tray">
+        <div className="display-flex align-items-center justify-content-center">
+          <div className="result-display">{generatedPassword}</div>
+          <div className="buttons-container">
+            <button className="copy-button" onClick={copyPassword}>
+              📋
+            </button>
+            <button className="regenerate-button" onClick={regeneratePassword}>
+              🔄
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -127,61 +128,63 @@ function OptionsTray({
   setUseSymbols,
 }) {
   return (
-    <form className="options-tray" onSubmit={(e) => e.preventDefault()}>
-      <div className="password-length-container">
-        <label htmlFor="passwordLength">Password Length</label>
-        <input
-          id="passwordLength"
-          type="number"
-          value={passwordLength}
-          onChange={(e) => {
-            const value = e.target.value.slice(0, 2); // Limit to 2 digits
-            setPasswordLength(value ? Number(value) : "");
-          }}
-          min="1"
-          max="99"
-          className="password-length-input"
-        />
-      </div>
+    <div className="full-width display-flex justify-content-center">
+      <form className="options-tray" onSubmit={(e) => e.preventDefault()}>
+        <div className="password-length-container">
+          <label htmlFor="passwordLength">Password Length</label>
+          <input
+            id="passwordLength"
+            type="number"
+            value={passwordLength}
+            onChange={(e) => {
+              const value = e.target.value.slice(0, 2); // Limit to 2 digits
+              setPasswordLength(value ? Number(value) : "");
+            }}
+            min="1"
+            max="99"
+            className="password-length-input"
+          />
+        </div>
 
-      <div className="charset-container">
-        <div className="option-item">
-          <label>Uppercase</label>
-          <input
-            type="checkbox"
-            name="useUpperCase"
-            checked={useUpperCase}
-            onChange={(e) => setUseUpperCase(e.target.checked)}
-          />
+        <div className="charset-container">
+          <div className="option-item">
+            <label>Uppercase</label>
+            <input
+              type="checkbox"
+              name="useUpperCase"
+              checked={useUpperCase}
+              onChange={(e) => setUseUpperCase(e.target.checked)}
+            />
+          </div>
+          <div className="option-item">
+            <label>Lowercase</label>
+            <input
+              type="checkbox"
+              name="useLowerCase"
+              checked={useLowerCase}
+              onChange={(e) => setUseLowerCase(e.target.checked)}
+            />
+          </div>
+          <div className="option-item">
+            <label>Numbers</label>
+            <input
+              type="checkbox"
+              name="useNumbers"
+              checked={useNumbers}
+              onChange={(e) => setUseNumbers(e.target.checked)}
+            />
+          </div>
+          <div className="option-item">
+            <label>Symbols</label>
+            <input
+              type="checkbox"
+              name="useSymbols"
+              checked={useSymbols}
+              onChange={(e) => setUseSymbols(e.target.checked)}
+            />
+          </div>
         </div>
-        <div className="option-item">
-          <label>Lowercase</label>
-          <input
-            type="checkbox"
-            name="useLowerCase"
-            checked={useLowerCase}
-            onChange={(e) => setUseLowerCase(e.target.checked)}
-          />
-        </div>
-        <div className="option-item">
-          <label>Numbers</label>
-          <input
-            type="checkbox"
-            name="useNumbers"
-            checked={useNumbers}
-            onChange={(e) => setUseNumbers(e.target.checked)}
-          />
-        </div>
-        <div className="option-item">
-          <label>Symbols</label>
-          <input
-            type="checkbox"
-            name="useSymbols"
-            checked={useSymbols}
-            onChange={(e) => setUseSymbols(e.target.checked)}
-          />
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
